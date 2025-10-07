@@ -7,7 +7,7 @@ on:
     # The cron syntax is: minute hour day_of_month month day_of_week
     # Note: GitHub Actions runs on UTC time, so you may need to adjust 
     # the '0 0' to account for your local timezone.
-    - cron: '0 0 * * *' 
+    - cron: '30 18 * * *' 
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
