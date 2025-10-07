@@ -1,5 +1,5 @@
-import chromium from "@sparticuz/chromium-min";
-import puppeteerCore from "puppeteer-core";
+
+
 import puppeteer from "puppeteer";
 import { createClient } from '@supabase/supabase-js';
 import 'dotenv/config';
@@ -23,41 +23,10 @@ const supabase = createClient(
     }
 );
 
-const remoteExecutablePath =
-    "https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar";
-let browser;
-async function getBrowser() {
-    if (browser) return browser;
-
-    try {
-        if (process.env.NEXT_PUBLIC_VERCEL_ENVIRONMENT === "production") {
-            browser = await puppeteerCore.launch({
-                args: chromium.args,
-                executablePath: await chromium.executablePath(remoteExecutablePath),
-                headless: true,
-            });
-        } else {
-            browser = await puppeteer.launch({
-                args: ["--no-sandbox", "--disable-setuid-sandbox"],
-                headless: true,
-            });
-        }
-    } catch (error) {
-        console.error("Error launching browser:", error);
-
-        // Fallback to Puppeteer's default Chromium
-        browser = await puppeteer.launch({
-            args: ["--no-sandbox", "--disable-setuid-sandbox"],
-            headless: true,
-        });
-    }
-
-    return browser;
-}
 
 
 async function run() {
-    const browser = await getBrowser();
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.goto(url);
 
@@ -77,11 +46,7 @@ async function run() {
 
     })
     await browser.close();
-    let nextId = 1;
-    const articlesWithId = allarticles.map(article => ({
-        id: nextId++,
-        ...article,
-    }));
+    
 
     // console.log(allarticles);
 
@@ -127,7 +92,7 @@ async function run() {
 
 
     if (deleteRowWithServiceRole(tablename, 0)) {
-        insertArrayOfObjects(tablename, articlesWithId);
+        insertArrayOfObjects(tablename, allarticles);
     }
 
 
@@ -141,16 +106,6 @@ async function run() {
 }
 run();
 
-// console.log(url);
 
-// let chrome = {};
-// let puppeteer;
-
-// if(process.env.AWS_LAMBDA_FUNCTION_VERSION){
-//     chrome = require('chrome-aws-lambda');
-//     puppeteer = require('puppeteer-core');
-// }else {
-//     puppeteer = require('puppeteer');
-// }
 
 
