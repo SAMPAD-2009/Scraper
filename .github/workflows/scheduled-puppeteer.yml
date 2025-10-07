@@ -34,6 +34,10 @@ jobs:
 
       # Step 4: Run the Puppeteer script
       - name: Execute index.js script
+        env:
+          SUPABASE_URL:${{secrets.SUPABASE_URL}}
+          SUPABASE_ANON_KEY:${{secrets.SUPABASE_ANON_KEY}}
+    
         # Puppeteer often requires the '--no-sandbox' argument when run in CI/CD environments
         run: node index.js
         # You may need to modify your puppeteer.launch() call in index.js to include 
