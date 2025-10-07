@@ -20,8 +20,7 @@ const supabase = createClient(
         }
     }
 );
-console.log("Supabase URL:", process.env.SUPABASE_URL);
-console.log("Supabase Key Length:", process.env.SUPABASE_ANON_KEY?.length);
+
 
 async function run() {
     try {
@@ -94,6 +93,7 @@ async function run() {
 }
 
 run();
+
 
 
 
