@@ -1,1 +1,40 @@
+name: Daily Puppeteer Job
 
+# Controls when the workflow will run
+on:
+  schedule:
+    # Runs every day at 00:00 UTC (midnight UTC)
+    # The cron syntax is: minute hour day_of_month month day_of_week
+    # Note: GitHub Actions runs on UTC time, so you may need to adjust 
+    # the '0 0' to account for your local timezone.
+    - cron: '0 0 * * *' 
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run_puppeteer:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checks out your repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Sets up the Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use your desired Node.js version
+
+      # Step 3: Installs dependencies
+      # Ensure you have a package.json file with puppeteer listed in dependencies
+      - name: Install dependencies
+        run: npm ci # Use 'npm install' if you don't have a package-lock.json
+
+      # Step 4: Run the Puppeteer script
+      - name: Execute index.js script
+        # Puppeteer often requires the '--no-sandbox' argument when run in CI/CD environments
+        run: node index.js
+        # You may need to modify your puppeteer.launch() call in index.js to include 
+        # args: ['--no-sandbox', '--disable-setuid-sandbox'] for it to work in the runner.
