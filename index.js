@@ -33,7 +33,7 @@ async function run() {
 
         const allarticles = await page.evaluate(() => {
             const articles = document.querySelectorAll('.md-history-event, .featured-event-card');
-            const titleElement = document.querySelector('.card-body>.title');
+            const titleElement = document.querySelector('.card-body>.title,.card-body>.credit');
             if (titleElement) titleElement.remove();
 
             return Array.from(articles).map(article => {
@@ -93,6 +93,7 @@ async function run() {
 }
 
 run();
+
 
 
 
