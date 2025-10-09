@@ -33,8 +33,8 @@ async function run() {
 
         const allarticles = await page.evaluate(() => {
             const articles = document.querySelectorAll('.md-history-event, .featured-event-card');
-            const titleElement = document.querySelector('.card-body>.title,.card-body>.credit');
-            if (titleElement) titleElement.remove();
+            const titleElement = document.querySelectorAll('.card-body>.title,.card-body>.credit');
+            titleElement.forEach(el => el.remove());
 
             return Array.from(articles).map(article => {
                 const imgElement = article.querySelector('.card-media>img');
@@ -93,6 +93,7 @@ async function run() {
 }
 
 run();
+
 
 
 
