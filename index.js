@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 const today = new Date();
 const monthName = today.toLocaleString('default', { month: 'long' });
-const day = String(today.getDate()).padStart(2, '0');
+const day = String(today.getDate()+1).padStart(2, '0');
 const formattedDate = `${monthName}-${day}`;
 const url = `https://www.britannica.com/on-this-day/${formattedDate}`;
 
@@ -93,6 +93,7 @@ async function run() {
 }
 
 run();
+
 
 
 
