@@ -6,7 +6,21 @@ export const dynamic = "force-dynamic";
 
 const today = new Date();
 const monthName = today.toLocaleString('default', { month: 'long' });
-const day = String(today.getDate()+1).padStart(2, '0');
+const currentHour = today.getHours();
+const currentMinute = today.getMinutes();
+
+const targetHour = 19; 
+const targetMinute = 30;
+
+if (currentHour < targetHour || (currentHour === targetHour && currentMinute < targetMinute)) {
+    console.log("Running Condition 1: It's before 7:30 PM.");
+    const day = String(today.getDate()).padStart(2, '0');
+} else {
+    console.log("Running Condition 2: It's 7:30 PM or later.");
+    const day = String(today.getDate()+1).padStart(2, '0');
+}
+
+
 const formattedDate = `${monthName}-${day}`;
 const url = `https://www.britannica.com/on-this-day/${formattedDate}`;
 
@@ -93,6 +107,7 @@ async function run() {
 }
 
 run();
+
 
 
 
