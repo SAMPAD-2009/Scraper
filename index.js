@@ -12,17 +12,20 @@ const currentMinute = today.getMinutes();
 const targetHour = 19; 
 const targetMinute = 30;
 
+// declare `day` in outer scope so it's usable after the conditional
+let day;
 if (currentHour < targetHour || (currentHour === targetHour && currentMinute < targetMinute)) {
     console.log("Running Condition 1: It's before 7:30 PM.");
-    const day = String(today.getDate()).padStart(2, '0');
+    day = String(today.getDate()).padStart(2, '0');
 } else {
     console.log("Running Condition 2: It's 7:30 PM or later.");
-    const day = String(today.getDate()+1).padStart(2, '0');
+    day = String(today.getDate() + 1).padStart(2, '0');
 }
 
 
 const formattedDate = `${monthName}-${day}`;
 const url = `https://www.britannica.com/on-this-day/${formattedDate}`;
+console.log("Constructed URL:", url);
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
