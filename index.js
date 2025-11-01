@@ -12,6 +12,7 @@ const currentMinute = today.getMinutes();
 const targetHour = 19; 
 const targetMinute = 30;
 
+let day;
 if (currentHour < targetHour || (currentHour === targetHour && currentMinute < targetMinute)) {
     console.log("Running Condition 1: It's before 7:30 PM.");
     const day = String(today.getDate()).padStart(2, '0');
@@ -107,6 +108,7 @@ async function run() {
 }
 
 run();
+
 
 
 
