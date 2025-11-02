@@ -10,15 +10,15 @@ const currentHour = today.getHours();
 const currentMinute = today.getMinutes();
 
 const targetHour = 19; 
-const targetMinute = 30;
+const targetMinute = 0;
 
 // declare `day` in outer scope so it's usable after the conditional
 let day;
 if (currentHour < targetHour || (currentHour === targetHour && currentMinute < targetMinute)) {
-    console.log("Running Condition 1: It's before 7:30 PM.");
+    console.log("Running Condition 1: It's before 7:00 PM.");
     day = String(today.getDate()).padStart(2, '0');
 } else {
-    console.log("Running Condition 2: It's 7:30 PM or later.");
+    console.log("Running Condition 2: It's 7:00 PM or later.");
     day = String(today.getDate() + 1).padStart(2, '0');
 }
 
@@ -110,6 +110,7 @@ async function run() {
 }
 
 run();
+
 
 
 
